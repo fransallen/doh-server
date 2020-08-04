@@ -1,7 +1,4 @@
-# ------------------------------------------------------------------------------
-# Cargo Build Stage
-# ------------------------------------------------------------------------------
-
+# Build
 FROM rust:latest as cargo-build
 
 ARG VERSION=0.1.19
@@ -14,10 +11,7 @@ RUN rustup target add x86_64-unknown-linux-musl
 
 RUN RUSTFLAGS=-Clinker=musl-gcc cargo install doh-proxy --version $VERSION --root /usr/local/ --target=x86_64-unknown-linux-musl
 
-# ------------------------------------------------------------------------------
-# Final Stage
-# ------------------------------------------------------------------------------
-
+# App
 FROM alpine:3.10
 
 RUN apk add --no-cache libgcc runit shadow curl
