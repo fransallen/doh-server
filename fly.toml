@@ -1,4 +1,4 @@
-app = "upset-dns"
+app = "doh-server"
 
 
 [[services]]

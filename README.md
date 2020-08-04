@@ -1,1 +1,1 @@
-# dns.upset.dev (WIP)
+# doh-server
