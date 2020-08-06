@@ -22,7 +22,7 @@ RUN useradd doh-proxy
 
 USER doh-proxy
 
-ENV LISTEN=0.0.0.0:8080
+ENV LISTEN=0.0.0.0:8053
 ENV RESOLVER=1.1.1.1:53
 
 RUN /usr/local/bin/doh-proxy --version
