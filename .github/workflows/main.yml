@@ -1,13 +1,26 @@
-name: Fly Deploy
-on: [push]
-env:
-  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+
 jobs:
-  deploy:
-      name: Deploy app
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
-        - uses: superfly/flyctl-actions@1.1
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      -
+        name: Build and Publish latest Docker image
+          uses: VaultVulp/gp-docker-action@1.1.7 
+          with:
+            github-token: ${{ secrets.GITHUB_TOKEN }}
+            image-name: doh-server
+            dockerfile: Dockerfile
+      -
+        name: Fly Deploy
+          uses: superfly/flyctl-actions@1.1
+          secrets: |
+            FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
           with:
             args: "deploy"
